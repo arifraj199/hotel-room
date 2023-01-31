@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../UserContexts/UserContexts";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleSignIn } = useContext(AuthContext);
   const [error, setError] = useState("");
   let navigate = useNavigate();
   let location = useLocation();
@@ -23,6 +23,15 @@ const Login = () => {
         console.log(user);
         setError("");
         form.reset();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => setError(error.message));
+  };
+  const googleLogin = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
         navigate(from, { replace: true });
       })
       .catch((error) => setError(error.message));
@@ -47,6 +56,15 @@ const Login = () => {
       <Button className="w-100 fw-bold" variant="primary" type="submit">
         Register
       </Button>
+      <p className="text-center mt-2 mb-2">OR</p>
+      <div className="mt-0">
+        <Button
+          onClick={googleLogin}
+          variant="outline-success w-100 fw-semibold"
+        >
+          Google Login
+        </Button>{" "}
+      </div>
       <p className="mt-3 fw-semibold">
         New To Hotel X-CROSS?{" "}
         <small>

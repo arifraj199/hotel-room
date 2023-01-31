@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../UserContexts/UserContexts";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
-  const [users, setUsers] = useState({});
+  const { createUser, googleSignIn } = useContext(AuthContext);
+  const [setUsers] = useState({});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -33,6 +34,15 @@ const Register = () => {
         setError(error.message);
         setSuccess(false);
       });
+  };
+  const googleLogin = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => setError(error.message));
   };
   return (
     <Form
@@ -60,6 +70,15 @@ const Register = () => {
       <Button className="w-100 fw-bold" variant="primary" type="submit">
         Register
       </Button>
+      <p className="text-center mt-2 mb-2">OR</p>
+      <div className="mt-0">
+        <Button
+          onClick={googleLogin}
+          variant="outline-success w-100 fw-semibold"
+        >
+          Google Login
+        </Button>{" "}
+      </div>
       <p className="mt-3 fw-semibold">
         Have an Accoun on Hotel X-CROSS?{" "}
         <small>

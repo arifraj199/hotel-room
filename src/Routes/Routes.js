@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
       {
           path:'/booking',
           loader:async()=>fetch("room.json"),
-          element:<Rooms></Rooms>
+          element:<PrivateRoute><Rooms></Rooms></PrivateRoute>
       },
       {
         path: "/booking/:id",

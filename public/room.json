@@ -1,0 +1,17 @@
+[
+    {
+        "id":1,
+        "name":"Single Room",
+        "picture":"https://i.ibb.co/8d97pCS/single-bed.jpg"
+    },
+    {
+        "id":2,
+        "name":"Couple Room",
+        "picture":"https://i.ibb.co/vjSmBGm/couple-bed.jpg"
+    },
+    {
+        "id":3,
+        "name":"Family Room",
+        "picture":"https://i.ibb.co/X4qkYt6/family-bed.jpg"
+    }
+]

@@ -7,6 +7,7 @@ import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import Rooms from "../components/Rooms/Rooms";
 import Main from "../layouts/Main";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
         loader: async ({ params }) => {
           return fetch(`room.json/booking/${params.id}`);
         },
-        element: <Booking></Booking>,
+        element: <PrivateRoute><Booking></Booking></PrivateRoute>,
       },
     ],
   },

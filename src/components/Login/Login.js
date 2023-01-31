@@ -1,9 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../UserContexts/UserContexts";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  let navigate = useNavigate();
+  let location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
   // console.log(user);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,9 +21,11 @@ const Login = () => {
         const user = res.user;
         // console.log(user);
         console.log(user);
+        setError("");
         form.reset();
+        navigate(from, { replace: true });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setError(error.message));
   };
   return (
     <Form
@@ -35,9 +43,16 @@ const Login = () => {
         <Form.Label className="fw-semibold">Password</Form.Label>
         <Form.Control type="password" name="password" />
       </Form.Group>
+      {error && <p className="text-danger">{error}</p>}
       <Button className="w-100 fw-bold" variant="primary" type="submit">
         Register
       </Button>
+      <p className="mt-3 fw-semibold">
+        New To Hotel X-CROSS?{" "}
+        <small>
+          <Link to="/register">Register Now!</Link>
+        </small>{" "}
+      </p>
     </Form>
   );
 };
